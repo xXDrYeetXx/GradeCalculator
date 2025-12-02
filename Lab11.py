@@ -79,7 +79,7 @@ if selection == "1":
     if student_name not in students:
         print("Student not found")
         exit()
-    print(str(calculate_average(get_grades(students[student_name])))[:2]+"%")
+    print(str(int(calculate_average(get_grades(students[student_name]))))+"%")
 
 elif selection == "2":
     assignment_name = input("What is the assignment name: ")
