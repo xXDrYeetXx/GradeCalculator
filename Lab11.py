@@ -34,19 +34,15 @@ for filename in os.listdir("data/submissions/"):
         content = file.read()
         assignment_grades.append(content.split("|"))
 def get_grades(student_id):
-    student_assignments = []
-    for assignment in assignment_grades:
-        if assignment[0] == student_id:
-            student_assignments.append(assignment[1:])
-
-    student_assignments.sort(key=lambda x: int(x[0]))
     final_grades = []
-    for index, assignment in enumerate(student_assignments):
-        grade = assignment[1]
-        points = assignments[index][2]
-        final_grades.append([int(grade), int(points)])
-
+    for submission in assignment_grades:
+        if submission[0] == student_id:
+            assignment_id = submission[1]
+            grade = int(submission[2])
+            points = int(next(a[2] for a in assignments if a[1] == assignment_id))
+            final_grades.append([grade, points])
     return final_grades
+
 
 def calculate_average(grades):
     grade_sum = 0
@@ -54,7 +50,7 @@ def calculate_average(grades):
     for grade, points in grades:
         grade_sum += grade * points
         total_points += points
-    return grade_sum / total_points
+    return round(grade_sum / total_points)
 
 def get_assignment_code(assignment_name):
     for assignment in assignments:
@@ -70,7 +66,6 @@ def get_assignment_grades(assignment_code):
         if assignment[1] == assignment_code:
             grades.append(int(assignment[2]))
     return grades
-
 
 selection = input(menu)
 
